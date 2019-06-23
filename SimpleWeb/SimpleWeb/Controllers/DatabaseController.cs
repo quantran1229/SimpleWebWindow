@@ -139,7 +139,7 @@ namespace SimpleWeb.Controllers
                         i++;
                         if (i < (page - 1) * 10)
                             continue;
-                        if (i >= (page * 10) - 1)
+                        if (i >= (page * 10))
                             break;
                         //create entry base on reader and add it into array
                         User entry = new User();
@@ -200,7 +200,7 @@ namespace SimpleWeb.Controllers
                         i++;
                         if (i < (page - 1) * 10)
                             continue;
-                        if (i >= (page * 10) - 1)
+                        if (i >= (page * 10))
                             break;
                         //create a new entry base on reader and add it into list
                         User entry = new User();
