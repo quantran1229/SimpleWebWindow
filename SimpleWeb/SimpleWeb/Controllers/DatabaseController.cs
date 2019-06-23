@@ -130,7 +130,8 @@ namespace SimpleWeb.Controllers
                 using (SqliteConnection db_con = new SqliteConnection("Data Source=" + AppDomain.CurrentDomain.BaseDirectory + db_name + ";"))
                 {
                     db_con.Open();
-                    SqliteCommand command = new SqliteCommand("SELECT username,firstname,lastname,email FROM Users", db_con);
+                    SqliteCommand command = new SqliteCommand("SELECT username,firstname,lastname,email FROM Users LIMIT @page", db_con);
+                    command.Parameters.Add(new SqliteParameter("page", page*10));
                     SqliteDataReader reader = command.ExecuteReader();
                     int i = -1;
                     while (reader.Read())
@@ -189,8 +190,9 @@ namespace SimpleWeb.Controllers
                 using (SqliteConnection db_con = new SqliteConnection("Data Source=" + AppDomain.CurrentDomain.BaseDirectory + db_name + ";"))
                 {
                     db_con.Open();
-                    SqliteCommand command = new SqliteCommand("SELECT username,firstname,lastname,email FROM Users WHERE (LOWER(username) LIKE @key) OR (LOWER(firstname) LIKE @key) OR (LOWER(lastname) LIKE @key) OR (LOWER(email) LIKE @key)", db_con);
+                    SqliteCommand command = new SqliteCommand("SELECT username,firstname,lastname,email FROM Users WHERE (LOWER(username) LIKE @key) OR (LOWER(firstname) LIKE @key) OR (LOWER(lastname) LIKE @key) OR (LOWER(email) LIKE @key) LIMIT @page", db_con);
                     command.Parameters.Add(new SqliteParameter("key", '%' + keyword.ToLower() + '%'));
+                    ommand.Parameters.Add(new SqliteParameter("page", page*10));
                     SqliteDataReader reader = command.ExecuteReader();
                     int i = -1;
                     while (reader.Read())
